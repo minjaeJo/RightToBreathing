@@ -1,2 +1,18 @@
-# RightToBreathing
-숨쉴 권리 - 세운상가 도시재생 프로젝트
+# right_to_breathing
+
+> 숨쉴권리:_세운상가_도시재생_프로젝트
+
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+```
+
+For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
