@@ -1,5 +1,5 @@
 <template>
-    <div class="window-container">
+    <div>
         test
     </div>
 </template>
@@ -13,4 +13,5 @@ export default {
 <style scoped>
 
 </style>
+
 

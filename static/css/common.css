@@ -1,0 +1,15 @@
+
+html,body{
+	overflow: hidden;
+	font-family: "noto-regular";
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+}
+
+.window-container {
+    width: 100%;
+    height: 100%;
+    background: #232323;
+    color: #fff;
+}
