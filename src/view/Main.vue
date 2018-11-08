@@ -1,6 +1,5 @@
 <template>
-    <div>
-        test
+    <div class="window-container">
     </div>
 </template>
 
