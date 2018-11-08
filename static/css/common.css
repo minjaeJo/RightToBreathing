@@ -106,3 +106,20 @@ body {
     color: #fff;
     font-family: 'noto-regular';
 }
+/*bootstrap css*/
+.btn-green {
+    border: 1px solid #03fddd !important;
+    background: none;
+    width: 250px;
+    height: 40px;
+}
+.btn-green a {
+    color: #03fddd;
+}
+a:focus {
+    outline: none !important;
+}
+a:hover {
+    color: #03bba2 !important;
+    text-decoration: none !important;
+}
