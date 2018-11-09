@@ -112,8 +112,9 @@ body {
     background: none;
     width: 250px;
     height: 40px;
+    color: #03fddd;
 }
-.btn-green a {
+a {
     color: #03fddd;
 }
 a:focus {
