@@ -4,70 +4,106 @@
 </template>
 
 <script>
-import GLTFLoader from './components/three-gltf-loader.js'
+import * as THREE from 'three'
+import GLTFLoader from 'three-gltf-loader'
+import OrbitControls from 'three-orbitcontrols'
+import Dat from "dat.gui";
+
 export default {
     mounted() {
         this.init()
-                    console.log(document.getElementById("main"))
-
+        this.onAnimationFrameHandler()
     },
     data() {
         return {
             scene: '',
             renderer: '',
-            camera: ''
+            camera: '',
+            loader: '',
+            model: '',
+            control: '',
+            gui: '',
+            camera_position: {
+                x: '',
+                y: '',
+                z: ''
+            }
         }
     },
     methods: {
         init() {
-            var width = window.innerWidth;
-            var height = window.innerHeight;
-
-            this.renderer = new this.$THREE.WebGLRenderer({ antialias: true });
-            this.renderer.setSize(width, height);
+            this.scene = new THREE.Scene();
+            this.camera = new THREE.PerspectiveCamera();
+            this.renderer = new THREE.WebGLRenderer({antialias: true});
+            this.loader = new GLTFLoader();
+            this.loaderModel();
+            this.initCamera();
+            this.initRenderer();
+            this.initLight();
+            this.initDatGUI();
+            const windowResizeHanlder = () => {
+                const { innerHeight, innerWidth } = window;
+                this.renderer.setSize(innerWidth, innerHeight);
+                this.camera.aspect = innerWidth / innerHeight;
+                this.camera.updateProjectionMatrix();
+            }
+            windowResizeHanlder();
+            window.addEventListener('resize', windowResizeHanlder, false);
 
             document.getElementById("main").appendChild(this.renderer.domElement);
-
-            this.scene= new this.$THREE.Scene
-
-
-            // cube추가
-            var cubeGeometry = new this.$THREE.CubeGeometry(100, 100, 100);
-            var cubeMaterial = new this.$THREE.MeshLambertMaterial({ color: 0x1ec876});
-            var cube = new this.$THREE.Mesh(cubeGeometry, cubeMaterial);
-
-            cube.rotation.y = Math.PI * 45 / 180;
-
-            this.scene.add(cube);
-
-            this.camera = new this.$THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
-
-            this.camera.position.y = 60;
-            this.camera.position.z = 800;
-
-            this.scene.add(this.camera);
-            this.renderer.setClearColor(0xEEEEEE);
+        },
+        initDatGUI() {
+            this.gui = new Dat.GUI();
+        },
+        initCamera() {
+            this.camera.position.set(6,3,500);
+            this.camera.lookAt(new THREE.Vector3(0,100,0));
+            this.controlModel()
+        },
+        initLight() {
+            var light = new THREE.HemisphereLight( 0xbbbbff, 0x444422 );
+            light.position.set(0.5, 0, 0.866);
+            this.scene.add( light );
+        },
+        initRenderer() {
+            this.renderer.setPixelRatio( window.devicePixelRatio );
+            this.renderer.gammaOutput = true;
+            // this.renderer.setClearColor(0xcccccc, 1);
+        },
+        loaderModel() {
+            const self = this;
+            this.loader.load( '/static/model/sewoon.glb', function ( gltf ) {
+                self.scene.add( gltf.scene );
+            }, undefined, function ( e ) {
+                console.error( e );
+            } );
+        },
+        controlModel() {
+            this.controls = new OrbitControls( this.camera );
+            // this.controls.target.set( 0, - 0.2, - 0.2 );
+            this.controls.target.set( 0, 10, 0 );
+            this.controls.update();
+        },
+        onAnimationFrameHandler() {
             this.renderer.render(this.scene, this.camera);
-
-            // camera.lookAt(cube.position);
-
-            var skyboxGeometry = new this.$THREE.CubeGeometry(10000, 10000, 10000);
-            var skyboxMaterial = new this.$THREE.MeshBasicMaterial({ color: 0xfff, side: this.$THREE.BackSide });
-            var skybox = new this.$THREE.Mesh(skyboxGeometry, skyboxMaterial);
-
-            this.scene.add(skybox);
-
-            var pointLight = new this.$THREE.PointLight(0xffffff);
-            pointLight.position.set(0, 300, 200);
-
-            this.scene.add(pointLight);
+            window.requestAnimationFrame(this.onAnimationFrameHandler);
         }
     }
 }
 </script>
 
 <style scoped>
-
+.window-container {
+    position: relative;
+}
+.input-container {
+    position: absolute;
+    z-index: 1000px;
+}
+.input-container .block {
+    margin-bottom: 20px;
+    height: 30px;
+}
 </style>
 
 

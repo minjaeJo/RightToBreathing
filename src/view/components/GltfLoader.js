@@ -6,10 +6,9 @@
  * @author Don McCurdy / https://www.donmccurdy.com
  */
 
-var THREE = require( 'three' );
+var THREE = require('three');
 
-
-var _GLTFLoader = ( function () {
+THREE.GLTFLoader = ( function () {
 
 	function GLTFLoader( manager ) {
 
@@ -3366,5 +3365,4 @@ var _GLTFLoader = ( function () {
 
 } )();
 
-
-module.exports = _GLTFLoader;
+module.exports.default = THREE.GLTFLoader;

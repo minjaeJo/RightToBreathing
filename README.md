@@ -1,6 +1,6 @@
-# right_to_breathing
+# right_to_breating
 
-> 숨쉴권리:_세운상가_도시재생_프로젝트
+> 프로젝트명: 숨쉴 권리
 
 ## Build Setup
 
@@ -13,6 +13,9 @@ npm run dev
 
 # build for production with minification
 npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
