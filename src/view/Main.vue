@@ -1,5 +1,9 @@
 <template>
     <div id="main" class="window-container">
+        <div class="input-contaier">
+            <span>ssdfd</span>
+            <input>
+        </div>
     </div>
 </template>
 
@@ -40,7 +44,7 @@ export default {
             this.initCamera();
             this.initRenderer();
             this.initLight();
-            this.initDatGUI();
+            // this.initDatGUI();
             const windowResizeHanlder = () => {
                 const { innerHeight, innerWidth } = window;
                 this.renderer.setSize(innerWidth, innerHeight);
@@ -52,9 +56,9 @@ export default {
 
             document.getElementById("main").appendChild(this.renderer.domElement);
         },
-        initDatGUI() {
-            this.gui = new Dat.GUI();
-        },
+        // initDatGUI() {
+        //     this.gui = new Dat.GUI();
+        // },
         initCamera() {
             this.camera.position.set(6,3,500);
             this.camera.lookAt(new THREE.Vector3(0,100,0));
@@ -79,14 +83,16 @@ export default {
             } );
         },
         controlModel() {
-            this.controls = new OrbitControls( this.camera );
+            this.controls = new OrbitControls( this.camera, this.renderer.domElement );
             // this.controls.target.set( 0, - 0.2, - 0.2 );
             this.controls.target.set( 0, 10, 0 );
+            this.controls.autoRotate = true
             this.controls.update();
         },
         onAnimationFrameHandler() {
-            this.renderer.render(this.scene, this.camera);
             window.requestAnimationFrame(this.onAnimationFrameHandler);
+            this.controls.update();
+            this.renderer.render(this.scene, this.camera);
         }
     }
 }
@@ -94,7 +100,7 @@ export default {
 
 <style scoped>
 .window-container {
-    position: relative;
+    position: absolute;
 }
 .input-container {
     position: absolute;

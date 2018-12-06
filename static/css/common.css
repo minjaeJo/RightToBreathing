@@ -110,9 +110,10 @@ body {
 .btn-green {
     border: 1px solid #03fddd !important;
     background: none;
-    width: 250px;
-    height: 40px;
+    width: 330px;
+    height: 60px;
     color: #03fddd;
+    font-size: 20px;
 }
 a {
     color: #03fddd;
