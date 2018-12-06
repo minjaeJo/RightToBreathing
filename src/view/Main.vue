@@ -1,8 +1,10 @@
 <template>
     <div id="main" class="window-container">
         <div class="input-contaier">
-            <span>ssdfd</span>
-            <input>
+            <input v-model="camera_position_x" placeholder="x좌표">
+            <input v-model="camera_position_y" placeholder="y좌표">
+            <input v-model="camera_position_z" placeholder="z좌표">
+            <b-btn variant="green" @click="changeCamera">카메라 변경</b-btn>
         </div>
     </div>
 </template>
@@ -27,11 +29,9 @@ export default {
             model: '',
             control: '',
             gui: '',
-            camera_position: {
-                x: '',
-                y: '',
-                z: ''
-            }
+            camera_position_x: '',
+            camera_position_y: '',
+            camera_position_z: ''
         }
     },
     methods: {
@@ -61,7 +61,7 @@ export default {
         // },
         initCamera() {
             this.camera.position.set(6,3,500);
-            this.camera.lookAt(new THREE.Vector3(0,100,0));
+            this.camera.lookAt(new THREE.Vector3(100,100,0));
             this.controlModel()
         },
         initLight() {
@@ -93,6 +93,10 @@ export default {
             window.requestAnimationFrame(this.onAnimationFrameHandler);
             this.controls.update();
             this.renderer.render(this.scene, this.camera);
+        },
+        changeCamera() {
+            console.log('hi')
+            this.camera.position.set(this.camera_position_x,this.camera_position_y,this.camera_position_z)
         }
     }
 }
