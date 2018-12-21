@@ -16,8 +16,8 @@
                         <div class="table-td">서울전자 / 청계-다203 (2층)</div>
                         <div class="table-td"></div>
                         <div class="table-td">
-                            <b-progress :value="50" :max="100"></b-progress>
-                            <div class="point">2<span class="max-point">/ 10</span></div>
+                            <b-progress :value="5" :max="10"></b-progress>
+                            <div class="point">5<span class="max-point">/ 10</span></div>
                         </div>
                     </div>
                 </div>

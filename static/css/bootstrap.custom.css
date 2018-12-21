@@ -55,6 +55,16 @@
 .table-td:last-child{
     padding-right: 20px;
 }
+.table-row:hover {
+    background: #374140;
+}
+.table-row:hover:before {
+    content: "";
+    display: table-cell;
+    background: #09fcdc;
+    width:10px;
+    height: 100%;
+}
 .progress {
     display: inline-flex !important;
     background-color: #2d5d57 !important;
