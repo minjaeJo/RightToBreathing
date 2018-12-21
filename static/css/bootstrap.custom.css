@@ -1,0 +1,68 @@
+/* table */
+
+.table-header,.table-body{
+    display: table;
+    height: 48px;
+    width: 100%;
+}
+.table-header > .table-td:hover, .table-header > .table-td:active{
+    color : black;
+}
+.table-row{
+    display: table;
+    width: 100%;
+    height: 68px;
+    cursor: pointer;
+}
+.table-header {
+    height: 48px;
+    background: #333f3e;
+    z-index: 990;
+    position: relative;
+}
+.table-td{
+    display: table-cell;
+    line-height: 66px;
+    height: 66px;
+    font-size: 15px;
+    color : #09fcdc;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 120px;
+    border-bottom: 1px #666b6a solid;
+}
+.table-header .table-td{
+    font-family: noto-bold;
+    color : #09fcdc;
+    cursor: pointer;
+    line-height: 48px;
+    height: 48px;
+    border-bottom: 1px solid #09fcdc ;
+}
+.table-td.left {
+    text-align: left;
+}
+.table-td.center {
+    text-align: center;
+}
+.table-td.right {
+    text-align: right;
+}
+.table-body{
+    height: auto;
+}
+.table-td:last-child{
+    padding-right: 20px;
+}
+.progress {
+    display: inline-flex !important;
+    background-color: #2d5d57 !important;
+    width: 86px !important;
+    height: 11px !important;
+    border-radius: 0.2px !important;
+}
+.progress-bar {
+    background-color: #09fcdc !important;
+
+}

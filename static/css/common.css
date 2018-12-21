@@ -125,3 +125,10 @@ a:hover {
     color: #03bba2 !important;
     text-decoration: none !important;
 }
+.body-scroll{
+	z-index: 4000;
+	overflow-y: auto;
+    overflow-x: hidden;
+	height: 94%;
+	-webkit-overflow-scrolling: touch;
+}
