@@ -1,10 +1,10 @@
 <template>
     <div id="main" class="window-container">
         <div class="navbar-container">
-            <div class="title">쉼쉴권리</div>
+            <div class="title">숨쉴권리</div>
             <div class="description">숨쉴권리 컨소시엄이란?</div>
         </div>
-        <div class="table-container">
+        <div v-if="page=='list'" class="table-container">
             <div class="table-header">
                 <div class="table-td">상호명 / 위치</div>
                 <div class="table-td">|</div>
@@ -12,18 +12,11 @@
             </div>
             <div class="body-scroll">
                 <div class="table-body">
-                    <div class="table-row" v-for="i in 20" :key="i">
-                        <div class="table-td">서울전자 / 청계-다203 (2층)</div>
-                        <div class="table-td"></div>
-                        <div class="table-td">
-                            <b-progress :value="5" :max="10"></b-progress>
-                            <div class="point">5<span class="max-point">/ 10</span></div>
-                        </div>
-                    </div>
+                    <table-list-item v-for="i in 20" :key="i" @click="page='detail'"></table-list-item>
                 </div>
             </div>
-
         </div>
+        <detail-list v-if="page=='detail'"></detail-list>
     </div>
 </template>
 
@@ -31,14 +24,20 @@
 import * as THREE from 'three'
 import GLTFLoader from 'three-gltf-loader'
 import OrbitControls from 'three-orbitcontrols'
-
+import DetailList from './components/DetailList'
+import TableListItem from './components/TableListItem'
 export default {
     mounted() {
         // this.init()
         // this.onAnimationFrameHandler()
     },
+    components: {
+        DetailList,
+        TableListItem
+    },
     data() {
         return {
+            page: 'detail',
             scene: '',
             renderer: '',
             camera: '',
@@ -81,7 +80,7 @@ export default {
         initRenderer() {
             this.renderer.setPixelRatio( window.devicePixelRatio );
             this.renderer.gammaOutput = true;
-            // this.renderer.setClearColor(0xcccccc, 1);
+            this.renderer.setClearColor(0xefefef, 1);
         },
         loaderModel() {
             const self = this;
@@ -141,35 +140,14 @@ export default {
 }
 .table-container {
     position: absolute;
-    z-index: 1000px;
+    z-index: 1000;
     top: 40px;
     width: 500px;
-    height: 90%;
+    height: 91%;
     right: 0;
-    margin: 30px;
+    margin-top: 40px;
+    margin-right: 15px;
     background: #383838;
-    border: 1px solid #09fcdc
-}
-.table-td:nth-child(1) {
-    padding-left: 28px;
-    width: 290px;
-}
-.table-td:nth-child(2) {
-    width: 10px;
-}
-.table-td:nth-child(3) {
-    padding-left: 28px;
-    width: 200px;
-}
-.point {
-    display: inline-block;
-    margin-left: 20px;
-}
-.max-point {
-    opacity: 0.4;
-    font-size: 11px;
-    margin-left: 5px;
+    border: 1px solid #09fcdc;
 }
 </style>
-
-

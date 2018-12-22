@@ -16,6 +16,9 @@ export default {
 </script>
 
 <style scoped>
+.window-container {
+    background: #404040;
+}
 .background {
     position: absolute;
     left: 0;
