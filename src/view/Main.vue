@@ -1,22 +1,25 @@
 <template>
     <div id="main" class="window-container">
-        <div class="navbar-container">
-            <div class="title">숨쉴권리</div>
-            <div class="description">숨쉴권리 컨소시엄이란?</div>
-        </div>
-        <div v-if="page=='list'" class="table-container">
-            <div class="table-header">
-                <div class="table-td">상호명 / 위치</div>
-                <div class="table-td">|</div>
-                <div class="table-td">공기질 지표</div>
+        <div class="main-container">
+            <div class="navbar-container">
+                <div class="title">숨쉴권리</div>
+                <div class="description" @click="popup=true">숨쉴권리 컨소시엄이란?</div>
             </div>
-            <div class="body-scroll">
-                <div class="table-body">
-                    <table-list-item v-for="i in 20" :key="i" @click="page='detail'"></table-list-item>
+            <div v-if="list=='main'" class="table-container">
+                <div class="table-header">
+                    <div class="table-td">상호명 / 위치</div>
+                    <div class="table-td">|</div>
+                    <div class="table-td">공기질 지표</div>
+                </div>
+                <div class="body-scroll">
+                    <div class="table-body">
+                        <table-list-item v-for="i in 20" :key="i" @click="list='detail'"></table-list-item>
+                    </div>
                 </div>
             </div>
+            <detail-list v-if="list=='detail'"></detail-list>
         </div>
-        <detail-list v-if="page=='detail'"></detail-list>
+        <popup v-if="popup" :item="popup_content" @closePopup="popup=false"></popup>
     </div>
 </template>
 
@@ -26,6 +29,7 @@ import GLTFLoader from 'three-gltf-loader'
 import OrbitControls from 'three-orbitcontrols'
 import DetailList from './components/DetailList'
 import TableListItem from './components/TableListItem'
+import Popup from './components/Popup'
 export default {
     mounted() {
         // this.init()
@@ -33,17 +37,23 @@ export default {
     },
     components: {
         DetailList,
-        TableListItem
+        TableListItem,
+        Popup
     },
     data() {
         return {
-            page: 'detail',
+            list: 'main',
             scene: '',
             renderer: '',
             camera: '',
             loader: '',
             model: '',
-            control: ''
+            control: '',
+            popup: false,
+            popup_content: {
+                header: '숨쉴권리 컨소시엄',
+                body: '‘숨쉴권리 컨소시엄’은 서울의 종로와 중구에 걸쳐 조성된 조명, 음향, 영상 기기 등 도심 전자 제조업 중심의 세운상가에 입주하고 있는 로봇, 드론, 빅데이터, 전자수리, 발명, 기술교육, 커뮤니티디자인 등 다양한 분야의 단체들이 생활공간의 공기질 개선, 여성을 위한 적정기술 보급 등 ‘기술을 통한 지역과 사회 문제의 해결을 위해 함께 활동하는 프로젝트 팀’입니다.'
+            }
         }
     },
     methods: {
