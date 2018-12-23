@@ -15,7 +15,7 @@
                 <div class="air">
                     <div class="title">
                         <span>공기질 지표</span>
-                        <img class="question-img" src="/static/img/icon-question.png">
+                        <img class="question-img" src="/static/img/icon-question.png" @click="popup=true">
                     </div>
                     <div class="description">
                         <div class="point">
@@ -84,11 +84,24 @@
                 </div>
             </div>
         </div>
+        <popup v-if="popup==true" :item="popup_content" @closePopup="popup=false"></popup>
     </div>
 </template>
 <script>
+import Popup from '../components/Popup'
 export default {
-
+    components: {
+        Popup
+    },
+    data() {
+        return {
+            popup: false,
+            popup_content: {
+                header: '공기질 지표는 어떻게 측정되나요?',
+                body: '‘숨쉴권리 컨소시엄’은 서울의 종로와 중구에 걸쳐 조성된 조명, 음향, 영상 기기 등 도심 전자 제조업 중심의 세운상가에 입주하고 있는 로봇, 드론, 빅데이터, 전자수리, 발명, 기술교육, 커뮤니티디자인 등 다양한 분야의 단체들이 생활공간의 공기질 개선, 여성을 위한 적정기술 보급 등 ‘기술을 통한 지역과 사회 문제의 해결을 위해 함께 활동하는 프로젝트 팀’입니다.'
+            }
+        }
+    }
 }
 </script>
 <style scoped>
