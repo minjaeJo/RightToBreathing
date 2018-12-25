@@ -112,8 +112,12 @@ body {
     background: none;
     width: 330px;
     height: 60px;
-    color: #03fddd;
+    background: rgb(0,0,0,0.6) !important;
+    color: #03fddd !important;
     font-size: 20px;
+}
+.btn-green:hover {
+    background-color: rgba(1, 50, 43, 0.74) !important;
 }
 a {
     color: #03fddd;
@@ -131,4 +135,10 @@ a:hover {
     overflow-x: hidden;
 	height: 100%;
 	-webkit-overflow-scrolling: touch;
+}
+.campas > .direction {
+    display: none !important;
+}
+.toggle-fullscreen {
+    display: none !important;
 }

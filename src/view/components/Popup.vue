@@ -5,9 +5,7 @@
                 <img class="close" src="/static/img/icon-close.png">
                 <div class="title">{{item.header}}</div>
             </div>
-            <div class="popup-body">
-                {{item.body}}
-            </div>
+            <div class="popup-body" v-html="item.body"></div>
         </div>
     </div>
 </template>
@@ -41,11 +39,11 @@ export default {
     height: 500px;
     background: #000;
     padding: 100px;
-    color: #09fcdc;
+    color: #09fcdc;border: 1px solid #09fcdc;
 }
 .popup-header {
     width: 100%;
-    height: 100px;
+    height: 60px;
 }
 .popup-header .title{
     font-size: 24px;

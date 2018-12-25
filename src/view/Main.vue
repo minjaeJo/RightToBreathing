@@ -5,7 +5,7 @@
                 <div class="title">숨쉴권리</div>
                 <div class="description" @click="popup=true">숨쉴권리 컨소시엄이란?</div>
             </div>
-            <div v-if="list=='main'" class="table-container">
+            <div v-if="list" class="table-container">
                 <div class="table-header">
                     <div class="table-td">상호명 / 위치</div>
                     <div class="table-td">|</div>
@@ -13,11 +13,11 @@
                 </div>
                 <div class="body-scroll">
                     <div class="table-body">
-                        <table-list-item v-for="i in 20" :key="i" @click="list='detail'"></table-list-item>
+                        <table-list-item v-for="item in item_array" :key="item.id" :item="item" @click.native="clickList(item)"></table-list-item>
                     </div>
                 </div>
             </div>
-            <detail-list v-if="list=='detail'"></detail-list>
+            <detail-list v-else :item="detail_item" @returnList="list=true"></detail-list>
         </div>
         <popup v-if="popup" :item="popup_content" @closePopup="popup=false"></popup>
     </div>
@@ -30,10 +30,12 @@ import OrbitControls from 'three-orbitcontrols'
 import DetailList from './components/DetailList'
 import TableListItem from './components/TableListItem'
 import Popup from './components/Popup'
+import json from '../../static/json/index.json'
 export default {
     mounted() {
         // this.init()
         // this.onAnimationFrameHandler()
+        this.item_array = json.data;
     },
     components: {
         DetailList,
@@ -42,7 +44,7 @@ export default {
     },
     data() {
         return {
-            list: 'main',
+            list: true,
             scene: '',
             renderer: '',
             camera: '',
@@ -52,11 +54,18 @@ export default {
             popup: false,
             popup_content: {
                 header: '숨쉴권리 컨소시엄',
-                body: '‘숨쉴권리 컨소시엄’은 서울의 종로와 중구에 걸쳐 조성된 조명, 음향, 영상 기기 등 도심 전자 제조업 중심의 세운상가에 입주하고 있는 로봇, 드론, 빅데이터, 전자수리, 발명, 기술교육, 커뮤니티디자인 등 다양한 분야의 단체들이 생활공간의 공기질 개선, 여성을 위한 적정기술 보급 등 ‘기술을 통한 지역과 사회 문제의 해결을 위해 함께 활동하는 프로젝트 팀’입니다.'
-            }
+                body: '‘숨쉴권리 컨소시엄’은 서울의 도심 전자 제조업 중심지인 세운상가 일대에 입주하고 있는 다양한 분야의 단체들이 기술을 통한 지역과 사회 문제 해결방안 마련을 위해 함께 의기투합하여 활동하는 프로젝트 팀입니다.<br><br>본 컨소시엄에서는 한국과학창의재단과 함께 ‘숨쉴권리:도심제조업지역의 공기의 질 문제 발굴과 해결’이라는 과제를 수행중이며 공기질 현장인식 조사, 메이커스페이스 공기질 측정, 기술워크숍, 시작품 개발 등의 활동을 통해 세운상가 일대 공기의 질 문제에 대하여 함께 고민해보고자 합니다. '
+            },
+            item_array: [],
+            detail_item: ''
         }
     },
     methods: {
+        clickList(item){
+            this.list = false;
+            this.detail_item = item;
+            console.log(item);
+        },
         init() {
             this.scene = new THREE.Scene();
             this.camera = new THREE.PerspectiveCamera();
@@ -147,6 +156,7 @@ export default {
     line-height: 60px;
     margin-right: 30px;
     color: #09fcdc;
+    cursor: pointer;
 }
 .table-container {
     position: absolute;

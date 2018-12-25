@@ -1,14 +1,18 @@
 <template>
     <div class="detail-container">
         <div class="body-scroll">
-            <div class="return-list" @click="page='list'">
+            <div class="return-list" @click="returnList">
                 <img class="return-img" src="/static/img/icon-goback.png">
                 <span>리스트로 돌아가기</span>
             </div>
             <div class="picture-content">
-                <div class="title">서울전자/청계-다203(2층)</div>
+                <div class="title">{{item.location}}</div>
                 <div class="image">
-                    <img src="/static/img/11.김광웅_2.png">
+                    <img class="box-photo" :src="item.main_photo">
+                    <div class="pano-icon" @click="openPano(item.photo_360)">
+                        <span>360도 공간 사진 보기</span>
+                        <img src="/static/img/icon-camera.png">
+                    </div>
                 </div>
             </div>
             <div class="info-content">
@@ -19,7 +23,7 @@
                     </div>
                     <div class="description">
                         <div class="point">
-                            <span class="main-point">5</span>
+                            <span class="main-point">{{item.air}}</span>
                             <span class="max-point">/ 10</span>
                         </div>
                         <b-progress :value="5" :max="10"></b-progress>
@@ -32,11 +36,11 @@
                     <div class="description">
                         <div class="space-text" style="margin-right: 40px">
                             <div class="name">면적</div>
-                            <div>10평</div>
+                            <div>{{item.space}}평</div>
                         </div>
                         <div class="space-text">
                             <div class="name">상주인원</div>
-                            <div>3명</div>
+                            <div>{{item.person}}명</div>
                         </div>
                     </div>
                 </div>
@@ -44,10 +48,18 @@
             <div class="detail-content">
                 <div class="qna-list">
                     <div class="question">
-                        Q. 현재 활동하시는 사무실에서 주로 하시는 작업은 어떤 작업이신지요?
+                        Q. 현재 활동하시는 사무실의 규모는 어느 정도인가요?
                     </div>
                     <div class="answer">
-                        A. 물건 수리 주문받고, 수리하러 오시는 손님들을 맞이하며, 전화 상담 업무를 하고 있다.
+                        A. {{item.question_1}}
+                    </div>
+                </div>
+                <div class="qna-list">
+                    <div class="question">
+                       Q. 현재 활동하시는 사무실에서 주로 하시는 작업은 어떤 작업이신지요?
+                    </div>
+                    <div class="answer">
+                        A. {{item.question_2}}
                     </div>
                 </div>
                 <div class="qna-list">
@@ -55,7 +67,23 @@
                         Q. 작업과정 전반에서 본인의 건강과 신체에 가장 나쁜 영향을 미치고 있다고 생각되는 것은 어떤 작업인가요?
                     </div>
                     <div class="answer">
-                        A. 작업 자체가 신체에 좋은 영향을 미치지 못한다. 오래된 물건들이 많아 먼지가 많아서 수리를 하게 되면 먼지를 마시게 된다. 그래서 답답함이 느껴진다.
+                        A. {{item.question_3}}
+                    </div>
+                </div>
+                <div class="qna-list">
+                    <div class="question">
+                        Q. 공기질 개선을 위해 주기적으로 하시는 활동이 있으신가요?
+                    </div>
+                    <div class="answer">
+                       A. {{item.question_4}}
+                    </div>
+                </div>
+                <div class="qna-list">
+                    <div class="question">
+                        Q. 주기적으로 하시는 공기질 개선 활동이 있으시다면 일주, 혹은 하루에 몇 번 몇 시간씩 하시나요?
+                    </div>
+                    <div class="answer">
+                        A. {{item.question_5}}
                     </div>
                 </div>
                 <div class="qna-list">
@@ -63,15 +91,7 @@
                         Q. 현재 본인이 갖고 있는 환경적 문제를 해결하는데 있어서 필요한 것은 어떤 것이라고 생각하시나요?
                     </div>
                     <div class="answer">
-                        A. 유리에 환기시설물을 설치했으면 좋겠다. 현재 창문이 하나도 없어서 너무 답답하다. 창문이라도 설치해서 공기가 통하는 길이 생겼으면 좋겠다.
-                    </div>
-                </div>
-                <div class="qna-list">
-                    <div class="question">
-                        Q. 현재 근무하시는 주변지역의 공기와 관련한 환경은 어떻다고 생각하시나요? 나쁘다고 생각한다면 특히 어떤 부분이 나쁘다고 생각하시나요?
-                    </div>
-                    <div class="answer">
-                        A. 주변공기가 나쁘니까, 작업장도 배로 나빠지는 것 같다. 위, 아래, 옆 주차장, 옆 상가에서 나오는 매연, 분진이나 큰 먼지들이 다 들어오고 있다. 지금 가장 취약한 위치에 작업장이 위치한 것 같다.
+                        A. {{item.question_6}}
                     </div>
                 </div>
                 <div class="qna-list">
@@ -79,29 +99,48 @@
                         Q. 환경을 개선하기 위한 아이디어나 제안 사항이 있으신가요?
                     </div>
                     <div class="answer">
-                        A. 아이디어라기보다는, 청계상가 동측이 많이 지저분하다. 분진이 많이 날리고, 용접할 때 날리는 가스에 피곤할 때가 있다. 을지로 인쇄골목쪽도 화학유해물질이 많이 발생한다. 이 부근의 환경을 좀 더 신경 써서 개선시켰으면 하는 바람이 있다.
+                        A. {{item.question_7}}
                     </div>
                 </div>
             </div>
         </div>
         <popup v-if="popup==true" :item="popup_content" @closePopup="popup=false"></popup>
+        <div v-if="pano==true" class="pano-container">
+            <pano title="" width="100%" height="100%" :bundle="photo_360" format="jpg" style="position: initial;"></pano>
+            <img class="guide-360" src="/static/img/guide-360.png">
+            <img class="guide-close" src="/static/img/icon-close.png" @click="pano=false">
+        </div>
     </div>
 </template>
 <script>
 import Popup from '../components/Popup'
+import Pano from 'vue-pano'
 export default {
+    props:['item'],
     components: {
-        Popup
+        Popup,
+        Pano
     },
     data() {
         return {
+            pano: false,
             popup: false,
             popup_content: {
                 header: '공기질 지표는 어떻게 측정되나요?',
                 body: '‘숨쉴권리 컨소시엄’은 서울의 종로와 중구에 걸쳐 조성된 조명, 음향, 영상 기기 등 도심 전자 제조업 중심의 세운상가에 입주하고 있는 로봇, 드론, 빅데이터, 전자수리, 발명, 기술교육, 커뮤니티디자인 등 다양한 분야의 단체들이 생활공간의 공기질 개선, 여성을 위한 적정기술 보급 등 ‘기술을 통한 지역과 사회 문제의 해결을 위해 함께 활동하는 프로젝트 팀’입니다.'
-            }
+            },
+            photo_360: ''
         }
-    }
+    },
+    methods: {
+        openPano(src) {
+            this.pano = true;
+            this.photo_360 = src;
+        },
+        returnList() {
+            this.$emit('returnList')
+        }
+    },
 }
 </script>
 <style scoped>
@@ -114,6 +153,18 @@ export default {
     right: 0;
     margin-top: 30px;
     margin-right: 15px;
+}
+.pano-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    z-index: 9900;
+    text-align: -webkit-center;
+    padding-top: 190px;
 }
 .picture-content {
     width: 100%;
@@ -136,9 +187,24 @@ export default {
     width: 100%;
     height: 350px;
 }
-.picture-content .image img {
+.picture-content .box-photo {
     width: 100%;
     height: 100%;
+}
+.picture-content .pano-icon {
+    position: absolute;
+    bottom: 21px;
+    right: 17px;
+    cursor: pointer;
+}
+.picture-content .pano-icon span {
+    color: #09fcdc;
+    font-size: 14px;
+    font-family: 'noto-light';
+    vertical-align: middle;
+}
+.picture-content .pano-icon img {
+    width: 34px;
 }
 .info-content {
     display: inline-flex;
@@ -169,7 +235,6 @@ export default {
 }
 .detail-content {
     width: 100%;
-    height: 800px;
     color: #09fcdc;
     background: #414141;
     padding: 40px 30px;
@@ -192,6 +257,7 @@ export default {
     top: 18px;
     right: 18px;
     width: 17px;
+    cursor: pointer;
 }
 .progress {
     width: 104px !important;
@@ -231,6 +297,21 @@ export default {
 }
 .qna-list .answer {
     color: #2a9b8c;
+}
+.guide-360 {
+    position: absolute;
+    left: 40vw;
+    top: 40vh;
+    width: 275px;
+    height: 150px;
+}
+.guide-close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
 }
 </style>
 
