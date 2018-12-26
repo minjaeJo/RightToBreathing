@@ -33,8 +33,8 @@ import Popup from './components/Popup'
 import json from '../../static/json/index.json'
 export default {
     mounted() {
-        // this.init()
-        // this.onAnimationFrameHandler()
+        this.init()
+        this.onAnimationFrameHandler()
         this.item_array = json.data;
     },
     components: {
