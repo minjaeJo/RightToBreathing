@@ -240,6 +240,7 @@ export default {
     padding: 40px 30px;
 }
 .return-list {
+    cursor: pointer;
     color: #000;
     font-size: 14px;
     font-family: 'noto-medium';

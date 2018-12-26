@@ -2,7 +2,7 @@
     <div id="main" class="window-container">
         <div class="main-container">
             <div class="navbar-container">
-                <div class="title">숨쉴권리</div>
+                <div class="title" @click="$router.push('/')">숨쉴권리</div>
                 <div class="description" @click="popup=true">숨쉴권리 컨소시엄이란?</div>
             </div>
             <div v-if="list" class="table-container">
@@ -148,6 +148,7 @@ export default {
     font-size: 30px;
     font-family: 'InkLipquid';
     color: #09fcdc;
+    cursor: pointer;
 }
 .navbar-container .description {
     display: inline-block;
