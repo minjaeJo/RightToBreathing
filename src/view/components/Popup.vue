@@ -54,6 +54,9 @@ export default {
     font-size: 16px;
     font-family: 'noto-light';
     text-align: left;
+    line-height: 1.75;
+    word-break: break-all;
+    text-align: justify;
 }
 .close {
     position: absolute;

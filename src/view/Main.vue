@@ -7,9 +7,17 @@
             </div>
             <div v-if="list" class="table-container">
                 <div class="table-header">
-                    <div class="table-td">상호명 / 위치</div>
+                    <div class="table-td" @click="sortArray('location')">
+                        <span>상호명 / 위치</span>
+                        <img v-if="location_check" src="/static/img/icon-sorting.png">
+                        <img v-else src="/static/img/icon-sorting-trans.png">
+                    </div>
                     <div class="table-td">|</div>
-                    <div class="table-td">공기질 지표</div>
+                    <div class="table-td" @click="sortArray('air')">
+                        <span>공기질 지표</span>
+                        <img v-if="air_check" src="/static/img/icon-sorting.png">
+                        <img v-else src="/static/img/icon-sorting-trans.png">
+                    </div>
                 </div>
                 <div class="body-scroll">
                     <div class="table-body">
@@ -31,10 +39,11 @@ import DetailList from './components/DetailList'
 import TableListItem from './components/TableListItem'
 import Popup from './components/Popup'
 import json from '../../static/json/index.json'
+const basic_array = json.data;
 export default {
     mounted() {
-        this.init()
-        this.onAnimationFrameHandler()
+        // this.init()
+        // this.onAnimationFrameHandler()
         this.item_array = json.data;
     },
     components: {
@@ -57,10 +66,40 @@ export default {
                 body: '‘숨쉴권리 컨소시엄’은 서울의 도심 전자 제조업 중심지인 세운상가 일대에 입주하고 있는 다양한 분야의 단체들이 기술을 통한 지역과 사회 문제 해결방안 마련을 위해 함께 의기투합하여 활동하는 프로젝트 팀입니다.<br><br>본 컨소시엄에서는 한국과학창의재단과 함께 ‘숨쉴권리:도심제조업지역의 공기의 질 문제 발굴과 해결’이라는 과제를 수행중이며 공기질 현장인식 조사, 메이커스페이스 공기질 측정, 기술워크숍, 시작품 개발 등의 활동을 통해 세운상가 일대 공기의 질 문제에 대하여 함께 고민해보고자 합니다. '
             },
             item_array: [],
-            detail_item: ''
+            detail_item: '',
+            air_check: false,
+            location_check: false,
+            sort_check: false
         }
     },
     methods: {
+        sortArray(keyword) {
+                this.sort_check = !this.sort_check
+                if(keyword=='location' && this.sort_check) {
+                    this.item_array.sort((prev,next)=> {
+                        return prev.location.localeCompare(next.location)
+                    })
+                    this.sort_check = true;
+                    this.location_check = true;
+                } else if(keyword=='location' && !this.sort_check) {
+                    this.item_array.sort((prev,next)=> {
+                        return next.location.localeCompare(prev.location)
+                    })
+                    this.location_check = false;
+                }
+                else if(keyword=='air' && this.sort_check) {
+                    this.item_array.sort((prev,next)=> {
+                        return next.air - prev.air
+                    })
+                    this.sort_check = true;
+                    this.air_check = true;
+                } else if(keyword=='air' && !this.sort_check) {
+                    this.item_array.sort((prev,next)=> {
+                        return prev.air - next.air
+                    })
+                    this.air_check = false;
+                }
+        },
         clickList(item){
             this.list = false;
             this.detail_item = item;
@@ -170,5 +209,13 @@ export default {
     margin-right: 15px;
     background: #383838;
     border: 1px solid #09fcdc;
+}
+.table-td span {
+    vertical-align: middle;
+}
+.table-td img {
+    width: 17px;
+    height: 12px;
+    margin-left: 10px;
 }
 </style>

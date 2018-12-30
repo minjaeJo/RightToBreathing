@@ -1,6 +1,6 @@
 <template>
     <div class="window-container">
-        <img class="background" src="/static/img/img-bg.png">
+        <!-- <img class="background" src="/static/img/img-bg.png"> -->
         <div class="title-container">
             <div class="sub-title">도심제조업지역 공기 질 문제해결 프로젝트</div>
             <div class="main-title">숨쉴권리</div>
@@ -32,14 +32,9 @@ export default {
 <style scoped>
 .window-container {
     background: #050F10;
-}
-.background {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.43;
+    background-image: url(/static/img/img-bg.png);
+    background-position: center top;
+    background-size: cover;
 }
 .title-container {
     position: relative;
@@ -57,6 +52,7 @@ export default {
     margin-bottom: 15px;
 }
 .description {
+    cursor: pointer;
     margin-top: 15px;
 }
 </style>
