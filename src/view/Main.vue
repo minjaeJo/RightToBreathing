@@ -42,8 +42,8 @@ import json from '../../static/json/index.json'
 const basic_array = json.data;
 export default {
     mounted() {
-        // this.init()
-        // this.onAnimationFrameHandler()
+        this.init()
+        this.onAnimationFrameHandler()
         this.item_array = json.data;
     },
     components: {
@@ -126,7 +126,7 @@ export default {
             document.getElementById("main").appendChild(this.renderer.domElement);
         },
         initCamera() {
-            this.camera.position.set(6,3,500);
+            this.camera.position.set(450,300,300);
             this.camera.lookAt(new THREE.Vector3(100,100,0));
             this.controlModel()
         },
@@ -142,7 +142,7 @@ export default {
         },
         loaderModel() {
             const self = this;
-            this.loader.load( '/static/model/sewoon.glb', function ( gltf ) {
+            this.loader.load( '/static/model/a.glb', function ( gltf ) {
                 self.scene.add( gltf.scene );
             }, undefined, function ( e ) {
                 console.error( e );
