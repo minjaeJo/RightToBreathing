@@ -1,9 +1,13 @@
 <template>
     <div id="main" class="window-container">
+        <div v-if="detail_img==true" class="detail-container">
+            <img :src="'/static/img/detail/'+(Number(detail_item.id + 1))+'.png'">
+        </div>
         <div class="main-container">
             <div class="navbar-container">
                 <div class="title" @click="$router.push('/')">숨쉴권리</div>
                 <div class="description" @click="popup=true">숨쉴권리 컨소시엄이란?</div>
+                <div class="description" @click="detail_img=false">모델 보기</div>
             </div>
             <div v-if="list" class="table-container">
                 <div class="table-header">
@@ -69,7 +73,8 @@ export default {
             detail_item: '',
             air_check: false,
             location_check: false,
-            sort_check: false
+            sort_check: false,
+            detail_img: false
         }
     },
     methods: {
@@ -103,7 +108,7 @@ export default {
         clickList(item){
             this.list = false;
             this.detail_item = item;
-            console.log(item);
+            this.detail_img = true;
         },
         init() {
             this.scene = new THREE.Scene();
@@ -169,6 +174,15 @@ export default {
     position: absolute;
     width: 100%;
     height: 100%;
+}
+.detail-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.detail-container img {
+    height: calc(100% - 60px);
+    margin-top: 60px;
 }
 .navbar-container {
     position: absolute;
