@@ -106,7 +106,8 @@
         </div>
         <popup v-if="popup==true" :item="popup_content" @closePopup="popup=false"></popup>
         <div v-if="pano==true" class="pano-container">
-            <pano title="" width="100%" height="100%" :bundle="photo_360" format="jpg" style="position: initial;"></pano>
+            <Pano :source="photo_360"></Pano>
+            <!-- <pano title="" width="100%" height="100%" :bundle="photo_360" format="jpg" style="position: initial;"></pano> -->
             <img class="guide-360" src="/static/img/guide-360.png">
             <img class="guide-close" src="/static/img/icon-close.png" @click="pano=false">
         </div>
@@ -114,7 +115,7 @@
 </template>
 <script>
 import Popup from '../components/Popup'
-import Pano from 'vue-pano'
+import { Pano } from 'vuejs-vr'
 export default {
     props:['item'],
     components: {
@@ -164,7 +165,6 @@ export default {
     background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
     z-index: 9900;
     text-align: -webkit-center;
-    padding-top: 190px;
 }
 .picture-content {
     width: 100%;
